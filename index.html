@@ -680,6 +680,7 @@ header p{margin:3px 0 0;font-size:12px}
   transform:rotate(-45deg)}
 .pin span{color:#fff;font-size:14px;font-weight:bold;transform:rotate(45deg)}
 .leaflet-popup-content{font-size:14px}
+.direccion-sede{color:#444;font-size:13px;margin:6px 0 8px;line-height:1.35}
 </style>
 </head>
 <body>
@@ -701,16 +702,16 @@ header p{margin:3px 0 0;font-size:12px}
 <script>
 (function(){
   var sedes=[
-    {nombre:"UPNA Centro de Salud T-III Dr. Jose Zozaya",lat:19.3984649,lng:-99.1186533},
-    {nombre:"UPNA Centro de Salud T-II Ramos Millán",lat:19.3863095,lng:-99.0952924},
-    {nombre:"UPNA Centro de Salud T-III Campamento 2 de Octubre",lat:19.3845479,lng:-99.1174587},
-    {nombre:"UPNA CENTRO DE SALUD T-III Dr. Luis Mazzotti Galindo",lat:19.4136083,lng:-99.0584283},
-    {nombre:"Mercado La Cruz",lat:19.4023267,lng:-99.1174201},
-    {nombre:"Avenida del Recreo y Sur 173",lat:19.3926601,lng:-99.0927125},
-    {nombre:"CAIS Coruña",lat:19.3992355,lng:-99.1317519},
-    {nombre:"Parque Lineal Ramos Millán",lat:19.3917081,lng:-99.1000058},
-    {nombre:"Puerta 15 CONADE",lat:19.4014162,lng:-99.0915146},
-    {nombre:'UPNA Centro de Salud T-III Dr. Manuel Pesqueira',lat:19.3943525,lng:-99.0704234}
+    {nombre:"UPNA Centro de Salud T-III Dr. Jose Zozaya",lat:19.3984649,lng:-99.1186533,dir:"Calle Corregidora, Santa Anita, Iztacalco, CDMX"},
+    {nombre:"UPNA Centro de Salud T-II Ramos Millán",lat:19.3863095,lng:-99.0952924,dir:"Calle Oriente 120, Ampliación Gabriel Ramos Millán, Iztacalco, CDMX"},
+    {nombre:"UPNA Centro de Salud T-III Campamento 2 de Octubre",lat:19.3845479,lng:-99.1174587,dir:"Calle Melchor Ocampo, Benito Juárez, Iztacalco, CDMX"},
+    {nombre:"UPNA CENTRO DE SALUD T-III Dr. Luis Mazzotti Galindo",lat:19.4136083,lng:-99.0584283,dir:"Calle Tomás Roche, Agrícola Pantitlán, Iztacalco, CDMX"},
+    {nombre:"Mercado La Cruz",lat:19.4023267,lng:-99.1174201,dir:"Calle Coyuya, El Ranchito, Iztacalco, CDMX"},
+    {nombre:"Avenida del Recreo y Sur 173",lat:19.3926601,lng:-99.0927125,dir:"Av. del Recreo y Sur 173, Gabriel Ramos Millán, Iztacalco, CDMX"},
+    {nombre:"CAIS Coruña",lat:19.3992355,lng:-99.1317519,dir:"Calle Sur 65 A 3255, Viaducto Piedad, Iztacalco, CDMX"},
+    {nombre:"Parque Lineal Ramos Millán",lat:19.3917081,lng:-99.1000058,dir:"Av. Río Churubusco, Iztacalco, CDMX"},
+    {nombre:"Puerta 15 CONADE",lat:19.4014162,lng:-99.0915146,dir:"Calle Coliflor, Unidad Deportiva Magdalena Mixhuca, Iztacalco, CDMX"},
+    {nombre:'UPNA Centro de Salud T-III Dr. Manuel Pesqueira',lat:19.3943525,lng:-99.0704234,dir:"Calle Oriente 245 A, Agrícola Oriental, Iztacalco, CDMX"}
   ];
   var mapa=L.map('map').setView([19.395,-99.100],13);
   // Respaldo: imagen incrustada en un pane por debajo de los mosaicos
@@ -742,12 +743,14 @@ header p{margin:3px 0 0;font-size:12px}
   var sel=document.getElementById('selector-sedes');
   var lim=L.latLngBounds([]);
   sedes.forEach(function(s,i){
-    var url='https://www.google.com/maps/search/?api=1&query='+s.lat+','+s.lng;
-    var dir='https://www.google.com/maps/dir/?api=1&destination='+s.lat+','+s.lng+'&travelmode=driving';
+    var q=encodeURIComponent(s.dir);
+    var url='https://www.google.com/maps/search/?api=1&query='+q;
+    var dir='https://www.google.com/maps/dir/?api=1&destination='+q+'&travelmode=driving';
     var ico=L.divIcon({className:'pin',html:'<div><span>'+(i+1)+'</span></div>',
       iconSize:[34,34],iconAnchor:[17,34],popupAnchor:[0,-30]});
     var m=L.marker([s.lat,s.lng],{icon:ico,keyboard:true}).addTo(mapa)
-      .bindPopup('<b>'+(i+1)+'. '+s.nombre+'</b><br>'+
+      .bindPopup('<b>'+(i+1)+'. '+s.nombre+'</b>'+
+        '<div class="direccion-sede">📍 '+s.dir+'</div>'+
         '<a href="'+dir+'" target="_blank" rel="noopener noreferrer">🧭 Cómo llegar</a> &nbsp;·&nbsp; '+
         '<a href="'+url+'" target="_blank" rel="noopener noreferrer">Ver ubicación</a>');
     lim.extend([s.lat,s.lng]);
