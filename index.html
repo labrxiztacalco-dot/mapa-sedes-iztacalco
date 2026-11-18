@@ -692,7 +692,7 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
   display:grid;place-items:center;font-weight:bold;font-size:13px}
 .tarjeta-sede.activa .num{background:#fff;color:#d92f75}
 .tarjeta-sede .txt{line-height:1.25}
-#map{height:520px;width:calc(100% - 32px);margin:14px 16px 0;border:3px solid #f7b6cd;
+#map{height:440px;width:calc(100% - 32px);margin:14px 16px 0;border:3px solid #f7b6cd;
   border-radius:14px;background:#f7dce6;box-shadow:0 3px 12px rgba(217,47,117,.14)}
 .pin{background:transparent;border:0}
 .pin>div{width:34px;height:34px;display:grid;place-items:center;border:3px solid #fff;
@@ -710,12 +710,11 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
     <h1>MAPA DE SEDES MASTOGRAFO MOVIL</h1>
     <p>Selecciona una sede para ver su ubicación y dirección</p>
   </div>
-  <div class="mono" role="img" aria-label="Lazo rosa de lucha contra el cáncer de mama">
-    <svg width="64" height="64" viewBox="0 0 68 68" xmlns="http://www.w3.org/2000/svg">
-      <path d="M18 34 C10 12 22 3 34 3 C46 3 58 12 50 34 L43 30 C49 14 43 10 34 10 C25 10 19 14 25 30 Z" fill="#d92f75"/>
-      <path d="M19 30 L27 29 L47 63 L38 64 Z" fill="#e53983"/>
-      <path d="M41 29 L49 30 L30 64 L21 63 Z" fill="#c4266e"/>
-      <circle cx="34" cy="33" r="6" fill="#f7b6cd" stroke="#d92f75" stroke-width="2"/>
+  <div class="mono" role="img" aria-label="Moño rosa de lucha contra el cáncer de mama">
+    <svg width="76" height="76" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#ea125b" fill-rule="evenodd" d="M50 12 C28 12 28 44 50 51 C72 44 72 12 50 12 Z M50 23 C42 23 42 36 50 39 C58 36 58 23 50 23 Z"/>
+      <path fill="#ea125b" d="M50 48 C40 55 34 65 30 82 L38 86 C42 70 47 60 53 52 Z"/>
+      <path fill="#ea125b" d="M50 48 C60 55 66 65 70 82 L62 86 C58 70 53 60 47 52 Z"/>
     </svg>
   </div>
 </header>
@@ -807,7 +806,7 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
     b.addEventListener('click',function(){irASede(i)});
     lista.appendChild(b);tarjetas.push(b);
   });
-  mapa.fitBounds(lim,{padding:[45,45]});
+  mapa.fitBounds(lim,{padding:[60,60]});
   sel.addEventListener('change',function(e){
     if(e.target.value==='')return;
     irASede(Number(e.target.value));
