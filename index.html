@@ -667,27 +667,48 @@ svg.leaflet-image-layer.leaflet-interactive path {
 		}
 	}
 
-body{margin:0;font-family:Arial,sans-serif;background:#fff}
-header{padding:12px 14px;background:#d92f75;color:#fff}
-header h1{margin:0;font-size:19px}
-header p{margin:3px 0 0;font-size:12px}
-#controles{padding:10px 14px}
-#selector-sedes{width:360px;max-width:100%;padding:9px;font-size:14px}
-#map{height:560px;width:100%;background:#cfe0ee}
+body{margin:0;font-family:Arial,sans-serif;background:#fce7ef;color:#5a3346}
+header{padding:16px 18px;background:#fff;color:#d92f75;border-bottom:3px solid #f7b6cd;
+  box-shadow:0 2px 8px rgba(217,47,117,.12)}
+header h1{margin:0;font-size:20px;letter-spacing:.5px}
+header h1 .ciudad{color:#5a3346;font-weight:normal}
+header p{margin:5px 0 0;font-size:13px;color:#a0527a}
+#controles{padding:12px 16px}
+#selector-sedes{width:360px;max-width:100%;padding:9px;font-size:14px;border:1px solid #f0a9c4;
+  border-radius:8px;background:#fff;color:#8a3d61}
+#lista-sedes{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;
+  padding:0 16px 14px}
+.tarjeta-sede{display:flex;align-items:center;gap:10px;text-align:left;cursor:pointer;
+  background:#fff;border:2px solid #f7b6cd;border-radius:12px;padding:10px 12px;
+  font-size:13px;color:#6d3a54;box-shadow:0 2px 6px rgba(217,47,117,.10);
+  transition:transform .12s,box-shadow .12s,border-color .12s}
+.tarjeta-sede:hover{transform:translateY(-2px);border-color:#d92f75;
+  box-shadow:0 5px 12px rgba(217,47,117,.22)}
+.tarjeta-sede.activa{background:#d92f75;color:#fff;border-color:#d92f75}
+.tarjeta-sede .num{flex:0 0 28px;height:28px;border-radius:50%;background:#d92f75;color:#fff;
+  display:grid;place-items:center;font-weight:bold;font-size:13px}
+.tarjeta-sede.activa .num{background:#fff;color:#d92f75}
+.tarjeta-sede .txt{line-height:1.25}
+#map{height:520px;width:calc(100% - 32px);margin:0 16px 18px;border:3px solid #f7b6cd;
+  border-radius:14px;background:#f7dce6;box-shadow:0 3px 12px rgba(217,47,117,.14)}
 .pin{background:transparent;border:0}
 .pin>div{width:34px;height:34px;display:grid;place-items:center;border:3px solid #fff;
   border-radius:50% 50% 50% 0;background:#d92f75;box-shadow:0 3px 9px rgba(0,0,0,.4);
   transform:rotate(-45deg)}
 .pin span{color:#fff;font-size:14px;font-weight:bold;transform:rotate(45deg)}
 .leaflet-popup-content{font-size:14px}
-.direccion-sede{color:#444;font-size:13px;margin:6px 0 8px;line-height:1.35}
+.direccion-sede{color:#8a3d61;font-size:13px;margin:6px 0 8px;line-height:1.35}
 </style>
 </head>
 <body>
-<header><h1>MAPA DE SEDES MASTOGRAFO MOVIL-IZTACALCO</h1></header>
+<header>
+  <h1><span class="ciudad">IZTACALCO</span> · MAPA DE SEDES MASTOGRAFO MOVIL</h1>
+  <p>Selecciona una sede para ver su ubicación y dirección</p>
+</header>
 <div id="controles">
   <select id="selector-sedes"><option value="">-- Selecciona una sede --</option></select>
 </div>
+<div id="lista-sedes"></div>
 
 <div id="map"></div>
 
@@ -741,7 +762,16 @@ header p{margin:3px 0 0;font-size:12px}
   mapa.setMaxBounds([[19.34,-99.18],[19.45,-99.01]]);
 
   var sel=document.getElementById('selector-sedes');
+  var lista=document.getElementById('lista-sedes');
   var lim=L.latLngBounds([]);
+  var marcadores=[], tarjetas=[];
+  function irASede(i){
+    var s=sedes[i];if(!s)return;
+    mapa.setView([s.lat,s.lng],16);
+    marcadores[i].openPopup();
+    sel.value=i;
+    tarjetas.forEach(function(t,j){t.classList.toggle('activa',j===i)});
+  }
   sedes.forEach(function(s,i){
     var q=encodeURIComponent(s.dir);
     var url='https://www.google.com/maps/search/?api=1&query='+q;
@@ -753,14 +783,19 @@ header p{margin:3px 0 0;font-size:12px}
         '<div class="direccion-sede">📍 '+s.dir+'</div>'+
         '<a href="'+dir+'" target="_blank" rel="noopener noreferrer">🧭 Cómo llegar</a> &nbsp;·&nbsp; '+
         '<a href="'+url+'" target="_blank" rel="noopener noreferrer">Ver ubicación</a>');
+    marcadores.push(m);
     lim.extend([s.lat,s.lng]);
     var o=document.createElement('option');o.value=i;o.textContent=(i+1)+'. '+s.nombre;sel.appendChild(o);
+    var b=document.createElement('button');
+    b.type='button';b.className='tarjeta-sede';
+    b.innerHTML='<span class="num">'+(i+1)+'</span><span class="txt">'+s.nombre+'</span>';
+    b.addEventListener('click',function(){irASede(i)});
+    lista.appendChild(b);tarjetas.push(b);
   });
   mapa.fitBounds(lim,{padding:[45,45]});
   sel.addEventListener('change',function(e){
     if(e.target.value==='')return;
-    var s=sedes[Number(e.target.value)];if(!s)return;
-    mapa.setView([s.lat,s.lng],16);
+    irASede(Number(e.target.value));
   });
 
 })();
