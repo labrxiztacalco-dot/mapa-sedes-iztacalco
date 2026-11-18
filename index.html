@@ -711,7 +711,7 @@ header p{margin:3px 0 0;font-size:12px}
     {nombre:"CAIS Coruña",lat:19.3992355,lng:-99.1317519,dir:"Calle Sur 65 A 3255, Viaducto Piedad, Iztacalco, CDMX"},
     {nombre:"Parque Lineal Ramos Millán",lat:19.3917081,lng:-99.1000058,dir:"Av. Río Churubusco, Iztacalco, CDMX"},
     {nombre:"Puerta 15 CONADE",lat:19.4014162,lng:-99.0915146,dir:"Calle Coliflor, Unidad Deportiva Magdalena Mixhuca, Iztacalco, CDMX"},
-    {nombre:'UPNA Centro de Salud T-III Dr. Manuel Pesqueira',lat:19.3943525,lng:-99.0704234,dir:"Av. Sur 16 esq. Oriente 245, Agrícola Oriental, Iztacalco, CDMX",buscar:"Centro de Salud Dr. Manuel Pesqueira, Av. Sur 16, Agrícola Oriental, Iztacalco, CDMX"}
+    {nombre:'UPNA Centro de Salud T-III Dr. Manuel Pesqueira',lat:19.3943525,lng:-99.0704234,dir:"Av. Sur 16 esq. Oriente 245, Agrícola Oriental, Iztacalco, CDMX"}
   ];
   var mapa=L.map('map').setView([19.395,-99.100],13);
   // Respaldo: imagen incrustada en un pane por debajo de los mosaicos
@@ -743,7 +743,7 @@ header p{margin:3px 0 0;font-size:12px}
   var sel=document.getElementById('selector-sedes');
   var lim=L.latLngBounds([]);
   sedes.forEach(function(s,i){
-    var q=encodeURIComponent(s.buscar||s.dir);
+    var q=s.lat+','+s.lng;
     var url='https://www.google.com/maps/search/?api=1&query='+q;
     var dir='https://www.google.com/maps/dir/?api=1&destination='+q+'&travelmode=driving';
     var ico=L.divIcon({className:'pin',html:'<div><span>'+(i+1)+'</span></div>',
