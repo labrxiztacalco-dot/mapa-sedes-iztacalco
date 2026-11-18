@@ -730,10 +730,13 @@ header p{margin:3px 0 0;font-size:12px}
   var lim=L.latLngBounds([]);
   sedes.forEach(function(s,i){
     var url='https://www.openstreetmap.org/?mlat='+s.lat+'&mlon='+s.lng+'#map=17/'+s.lat+'/'+s.lng;
+    var dir='https://www.openstreetmap.org/directions?to='+s.lat+','+s.lng;
     var ico=L.divIcon({className:'pin',html:'<div><span>'+(i+1)+'</span></div>',
       iconSize:[34,34],iconAnchor:[17,34],popupAnchor:[0,-30]});
     var m=L.marker([s.lat,s.lng],{icon:ico,keyboard:true}).addTo(mapa)
-      .bindPopup('<b>'+(i+1)+'. '+s.nombre+'</b><br><a href="'+url+'" target="_blank" rel="noopener noreferrer">Ver en OpenStreetMap</a>');
+      .bindPopup('<b>'+(i+1)+'. '+s.nombre+'</b><br>'+
+        '<a href="'+dir+'" target="_blank" rel="noopener noreferrer">🧭 Cómo llegar</a> &nbsp;·&nbsp; '+
+        '<a href="'+url+'" target="_blank" rel="noopener noreferrer">Ver ubicación</a>');
     lim.extend([s.lat,s.lng]);
     var o=document.createElement('option');o.value=i;o.textContent=(i+1)+'. '+s.nombre;sel.appendChild(o);
   });
