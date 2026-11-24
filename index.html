@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MAPA DE SEDES MASTOGRAFO MOVIL-IZTACALCO</title>
+<title>MAPA DE SEDES MASTOGRAFO MOVIL Y FIJO-IZTACALCO</title>
 <style>
 /* required styles */
 
@@ -670,7 +670,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 body{margin:0;font-family:Arial,sans-serif;background:#fce7ef;color:#5a3346}
 header{padding:16px 18px;background:#fff;color:#d92f75;border-bottom:3px solid #f7b6cd;
   box-shadow:0 2px 8px rgba(217,47,117,.12);
-  display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  display:flex;align-items:center;justify-content:center;text-align:center;gap:14px;flex-wrap:wrap}
 .jurisdiccion{color:#d92f75;font-weight:bold;font-size:15px;letter-spacing:2px;margin-bottom:4px}
 header h1{margin:0;font-size:20px;letter-spacing:.5px}
 header h1 .ciudad{color:#5a3346;font-weight:normal}
@@ -698,7 +698,7 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
 <header>
   <div>
     <div class="jurisdiccion">JURISDICCIÓN SANITARIA IZTACALCO</div>
-    <h1>MAPA DE SEDES MASTÓGRAFO MÓVIL</h1>
+    <h1>MAPA DE SEDES MASTÓGRAFO MÓVIL Y FIJO</h1>
   </div>
 </header>
 
@@ -729,7 +729,8 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
     {nombre:"CAIS Coruña",lat:19.3992355,lng:-99.1317519,dir:"Sur 65-A 3246, Viaducto Piedad, Iztacalco, 08200 CDMX"},
     {nombre:"Parque Lineal Ramos Millán",lat:19.3917081,lng:-99.1000058,dir:"Ote 106 2243, Gabriel Ramos Millán, Iztacalco, 08730 Ciudad de México, CDMX"},
     {nombre:"Puerta 15 CONADE",lat:19.4014162,lng:-99.0915146,dir:"Puerta 15 Autódromo Hermanos Rodríguez, Granjas México, Iztacalco, 08400 Ciudad de México, CDMX"},
-    {nombre:'UPNA Centro de Salud T-III Dr. Manuel Pesqueira',lat:19.3943525,lng:-99.0704234,dir:"Sur 16 470, Agrícola Oriental, Iztacalco, 08500 Ciudad de México, CDMX"}
+    {nombre:'UPNA Centro de Salud T-III Dr. Manuel Pesqueira',lat:19.3943525,lng:-99.0704234,dir:"Sur 16 470, Agrícola Oriental, Iztacalco, 08500 Ciudad de México, CDMX"},
+    {nombre:'Utopía Mixiuhca - Casa de la Salud (Mastógrafo fijo)',lat:19.40761,lng:-99.09153,dir:"Viad. Río de la Piedad 6, Granjas México, Iztacalco, 08400 Ciudad de México, CDMX"}
   ];
   var mapa=L.map('map').setView([19.395,-99.100],13);
   // Respaldo: imagen incrustada en un pane por debajo de los mosaicos
