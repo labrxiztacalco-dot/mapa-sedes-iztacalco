@@ -670,28 +670,38 @@ svg.leaflet-image-layer.leaflet-interactive path {
 body{margin:0;font-family:Arial,sans-serif;background:#fce7ef;color:#5a3346}
 header{padding:16px 18px;background:#fff;color:#d92f75;border-bottom:3px solid #f7b6cd;
   box-shadow:0 2px 8px rgba(217,47,117,.12);
-  display:flex;align-items:center;justify-content:center;text-align:center;gap:14px;flex-wrap:wrap}
+  display:flex;align-items:center;justify-content:center;text-align:center;gap:14px;flex-wrap:wrap;
+  animation:aparecer .6s ease-out both}
 .jurisdiccion{color:#d92f75;font-weight:bold;font-size:15px;letter-spacing:2px;margin-bottom:4px}
 header h1{margin:0;font-size:20px;letter-spacing:.5px}
 header h1 .ciudad{color:#5a3346;font-weight:normal}
 header p{margin:5px 0 0;font-size:13px;color:#a0527a}
-#controles{padding:12px 16px 4px}
+#controles{padding:12px 16px 4px;animation:aparecer .6s ease-out .15s both}
 #selector-sedes{width:360px;max-width:100%;padding:9px;font-size:14px;border:1px solid #f0a9c4;
   border-radius:8px;background:#fff;color:#8a3d61}
 #btn-resultados{display:block;margin:10px 16px 16px;padding:11px 20px;font-size:14px;font-weight:bold;
   letter-spacing:.5px;line-height:1.4;text-align:center;cursor:pointer;color:#fff;background:#d92f75;
   border:2px solid #d92f75;border-radius:10px;box-shadow:0 3px 9px rgba(217,47,117,.28);
-  transition:transform .12s,box-shadow .12s}
-#btn-resultados:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(217,47,117,.38)}
+  transition:transform .12s,box-shadow .12s;animation:brillo 2.4s ease-in-out infinite}
+#btn-resultados:hover{animation:none;transform:translateY(-2px);box-shadow:0 6px 14px rgba(217,47,117,.38)}
 #map{height:440px;width:calc(100% - 32px);margin:14px 16px 0;border:3px solid #f7b6cd;
-  border-radius:14px;background:#f7dce6;box-shadow:0 3px 12px rgba(217,47,117,.14)}
+  border-radius:14px;background:#f7dce6;box-shadow:0 3px 12px rgba(217,47,117,.14);
+  animation:aparecer .6s ease-out .3s both}
 .pin{background:transparent;border:0}
 .pin>div{width:34px;height:34px;display:grid;place-items:center;border:3px solid #fff;
   border-radius:50% 50% 50% 0;background:#d92f75;box-shadow:0 3px 9px rgba(0,0,0,.4);
-  transform:rotate(-45deg)}
+  transform:rotate(-45deg);animation:latido 2.2s ease-in-out infinite;
+  transition:background .2s,box-shadow .2s}
+.pin.activo>div{background:#b31f5c;box-shadow:0 0 0 4px rgba(255,255,255,.9),0 0 16px rgba(217,47,117,.8);
+  animation:latidoFuerte 1.2s ease-in-out infinite}
 .pin span{color:#fff;font-size:14px;font-weight:bold;transform:rotate(45deg)}
 .leaflet-popup-content{font-size:14px}
 .direccion-sede{color:#8a3d61;font-size:13px;margin:6px 0 8px;line-height:1.35}
+@keyframes aparecer{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+@keyframes latido{0%,100%{transform:rotate(-45deg) scale(1)}50%{transform:rotate(-45deg) scale(1.08)}}
+@keyframes latidoFuerte{0%,100%{transform:rotate(-45deg) scale(1.05)}50%{transform:rotate(-45deg) scale(1.18)}}
+@keyframes brillo{0%,100%{box-shadow:0 3px 9px rgba(217,47,117,.28)}50%{box-shadow:0 3px 20px rgba(217,47,117,.55)}}
+@media (prefers-reduced-motion:reduce){header,#controles,#map,.pin>div,#btn-resultados{animation:none!important}}
 </style>
 </head>
 <body>
@@ -766,6 +776,10 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
     var s=sedes[i];if(!s)return;
     mapa.setView([s.lat,s.lng],16);
     marcadores[i].openPopup();
+    marcadores.forEach(function(m,j){
+      var el=m.getElement();
+      if(el) el.classList.toggle('activo',j===i);
+    });
     sel.value=i;
   }
   sedes.forEach(function(s,i){
