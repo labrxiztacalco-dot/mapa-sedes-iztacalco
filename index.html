@@ -712,6 +712,11 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
   letter-spacing:.5px;cursor:pointer;color:#d92f75;background:#fff;border:2px solid #d92f75;
   border-radius:10px;box-shadow:0 3px 9px rgba(217,47,117,.18);transition:transform .25s,box-shadow .25s}
 #btn-imprimir:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(217,47,117,.28)}
+.btn-agendar{display:table;margin:12px auto 0;padding:10px 22px;background:#d92f75;color:#fff;
+  text-decoration:none;font-weight:bold;font-size:14px;letter-spacing:.5px;border-radius:10px;
+  box-shadow:0 3px 9px rgba(217,47,117,.28);transition:transform .25s,box-shadow .25s}
+.btn-agendar:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(217,47,117,.38)}
+.agendar-print{display:none}
 #listado-print{display:none}
 @media print{
   body{background:#fff;color:#000}
@@ -721,6 +726,9 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
   #requisitos{margin:0 0 12px;padding:0;border:0;box-shadow:none;animation:none}
   #requisitos h2{text-align:left;font-size:14px}
   #requisitos ul{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:16px}
+  .btn-agendar{display:none}
+  .agendar-print{display:block;color:#000;font-size:11px;margin-top:6px;font-weight:bold}
+  .agendar-print a{color:#000;text-decoration:none}
   #listado-print{display:block;font-size:11px;line-height:1.35}
   #listado-print h2{font-size:14px;margin:12px 0 6px;color:#000}
   #listado-print ol{padding-left:18px;margin:0}
@@ -751,6 +759,8 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
     <li>Baño del día (sin talco, cremas, perfume, brillos, aceites de la cabeza a la cintura y cabello amarrado).</li>
     <li>Tener más de un año de haberse realizado un estudio de mastografía.</li>
   </ul>
+  <a class="btn-agendar" href="https://saludprimernivel.sersalud.cdmx.gob.mx/chichihualli/" target="_blank" rel="noopener noreferrer">AGENDAR CITA DE MASTOGRAFÍA</a>
+  <div class="agendar-print">Agendar cita: <a href="https://saludprimernivel.sersalud.cdmx.gob.mx/chichihualli/">https://saludprimernivel.sersalud.cdmx.gob.mx/chichihualli/</a></div>
 </section>
 
 <div id="listado-print"></div>
