@@ -688,18 +688,20 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
   border-radius:14px;background:#f7dce6;box-shadow:0 3px 12px rgba(217,47,117,.14);
   animation:aparecer 1.2s ease-out .6s both}
 .pin{background:transparent;border:0}
-.pin>div{width:34px;height:34px;display:grid;place-items:center;border:3px solid #fff;
-  border-radius:50% 50% 50% 0;background:#d92f75;box-shadow:0 3px 9px rgba(0,0,0,.4);
-  transform:rotate(-45deg);animation:latido 4.4s ease-in-out infinite;
-  transition:background .4s,box-shadow .4s}
-.pin.activo>div{background:#b31f5c;box-shadow:0 0 0 4px rgba(255,255,255,.9),0 0 16px rgba(217,47,117,.8);
+.pin>div{width:34px;height:34px;display:grid;place-items:center;
+  filter:drop-shadow(0 3px 6px rgba(0,0,0,.4));animation:latido 4.4s ease-in-out infinite;
+  transition:filter .4s}
+.pin.activo>div{filter:drop-shadow(0 0 7px rgba(217,47,117,.95)) drop-shadow(0 0 3px #fff);
   animation:latidoFuerte 2.4s ease-in-out infinite}
-.pin span{color:#fff;font-size:14px;font-weight:bold;transform:rotate(45deg)}
 .leaflet-popup-content{font-size:14px}
 .direccion-sede{color:#8a3d61;font-size:13px;margin:6px 0 8px;line-height:1.35}
+.fechas-sede{color:#8a3d61;font-size:13px;margin:6px 0 9px;line-height:1.4;
+  background:#fff4f8;border-left:3px solid #d92f75;padding:6px 8px;border-radius:6px}
+.fechas-sede>div{margin:2px 0}
+.fechas-sede b{color:#d92f75}
 @keyframes aparecer{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
-@keyframes latido{0%,100%{transform:rotate(-45deg) scale(1)}50%{transform:rotate(-45deg) scale(1.08)}}
-@keyframes latidoFuerte{0%,100%{transform:rotate(-45deg) scale(1.05)}50%{transform:rotate(-45deg) scale(1.18)}}
+@keyframes latido{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes latidoFuerte{0%,100%{transform:scale(1.05)}50%{transform:scale(1.18)}}
 @keyframes brillo{0%,100%{box-shadow:0 3px 9px rgba(217,47,117,.28)}50%{box-shadow:0 3px 20px rgba(217,47,117,.55)}}
 @media (prefers-reduced-motion:reduce){header,#controles,#map,.pin>div,#btn-resultados{animation:none!important}}
 </style>
@@ -730,17 +732,29 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
 <script>
 (function(){
   var sedes=[
-    {nombre:"UPNA Centro de Salud T-III Dr. Jose Zozaya",lat:19.3984649,lng:-99.1186533,dir:"Corregidora 131, Santa Anita, Iztacalco, CDMX"},
+    {nombre:"UPNA Centro de Salud T-III Dr. Jose Zozaya",lat:19.3984649,lng:-99.1186533,dir:"Corregidora 131, Santa Anita, Iztacalco, CDMX",
+      fechas:[
+        {e:'10 y 11 dic',t:'10 y 11 de diciembre',dir:'Eje 4 Sur (Av. Plutarco Elías Calles) 135, Col. Santa Anita, Iztacalco'},
+        {e:'7 y 8 ene',t:'7 y 8 de enero',dir:'Eje 4 Sur (Av. Plutarco Elías Calles) 135, Col. Santa Anita, Iztacalco'}
+      ]},
     {nombre:"UPNA Centro de Salud T-II Ramos Millán",lat:19.3863095,lng:-99.0952924,dir:"Sur 159 esq. Ote. 120, Gabriel Ramos Millán, Iztacalco, 08500 CDMX"},
     {nombre:"UPNA Centro de Salud T-III Campamento 2 de Octubre",lat:19.3845479,lng:-99.1174587,dir:"Guillermo Prieto 73, Campamento 2 de Octubre, Iztacalco, 08930 Ciudad de México, CDMX"},
-    {nombre:"UPNA Centro de Salud T-III Dr. Luis Mazzotti Galindo",lat:19.4136083,lng:-99.0584283,dir:"Calle 6 No. 311, esq. Privada Tomás Roche, Pantitlán, Iztacalco, CDMX"},
-    {nombre:"Mercado La Cruz",lat:19.4023267,lng:-99.1174201,dir:"Calz. Coyuya s/n, La Cruz, Iztacalco, 08320 CDMX"},
-    {nombre:"Avenida del Recreo y Sur 173",lat:19.3926601,lng:-99.0927125,dir:"Av. del Recreo y Sur 173, Gabriel Ramos Millán, Iztacalco, CDMX"},
-    {nombre:"CAIS Coruña",lat:19.3992355,lng:-99.1317519,dir:"Sur 65-A 3246, Viaducto Piedad, Iztacalco, 08200 CDMX"},
-    {nombre:"Parque Lineal Ramos Millán",lat:19.3917081,lng:-99.1000058,dir:"Ote 106 2243, Gabriel Ramos Millán, Iztacalco, 08730 Ciudad de México, CDMX"},
-    {nombre:"Puerta 15 CONADE",lat:19.4014162,lng:-99.0915146,dir:"Puerta 15 Autódromo Hermanos Rodríguez, Granjas México, Iztacalco, 08400 Ciudad de México, CDMX"},
+    {nombre:"UPNA Centro de Salud T-III Dr. Luis Mazzotti Galindo",lat:19.4136083,lng:-99.0584283,dir:"Calle 6 No. 311, esq. Privada Tomás Roche, Pantitlán, Iztacalco, CDMX",
+      fechas:[{e:'8 dic',t:'8 de diciembre',dir:'Calle 6 y Tomás Roda s/n, Col. Agrícola Pantitlán, Iztacalco'}]},
+    {nombre:"Mercado La Cruz",lat:19.4023267,lng:-99.1174201,dir:"Calz. Coyuya s/n, La Cruz, Iztacalco, 08320 CDMX",
+      fechas:[{e:'7 y 9 dic',t:'7 y 9 de diciembre',dir:'Mercado de la Cruz-Coyuya S/N, Col. La Cruz Coyuya, Iztacalco'}]},
     {nombre:'UPNA Centro de Salud T-III Dr. Manuel Pesqueira',lat:19.3943525,lng:-99.0704234,dir:"Sur 16 470, Agrícola Oriental, Iztacalco, 08500 Ciudad de México, CDMX"},
-    {nombre:'Utopía Mixiuhca - Casa de la Salud (Mastógrafo fijo)',lat:19.40761,lng:-99.09153,dir:"Viad. Río de la Piedad 6, Granjas México, Iztacalco, 08400 Ciudad de México, CDMX"}
+    {nombre:'Utopía Mixiuhca - Casa de la Salud (Mastógrafo fijo)',lat:19.40761,lng:-99.09153,dir:"Viad. Río de la Piedad 6, Granjas México, Iztacalco, 08400 Ciudad de México, CDMX"},
+    {nombre:'Vía Pública - Mercado Rodeo',lat:19.3919815,lng:-99.0854713,dir:'Vía Pública-Mercado Rodeo, Calle 30, Col. El Rodeo, Iztacalco',
+      fechas:[{e:'1 y 2 dic',t:'1 y 2 de diciembre',dir:'Vía Pública-Mercado Rodeo, Calle 30, Col. El Rodeo, Iztacalco'}]},
+    {nombre:'Vía Pública - Raíz del Agua',lat:19.3820890,lng:-99.1050735,dir:'Vía Pública- Raíz del Agua S/N, Col. INFONAVIT, Iztacalco',
+      fechas:[{e:'3 dic',t:'3 de diciembre',dir:'Vía Pública- Raíz del Agua S/N, Col. INFONAVIT, Iztacalco'}]},
+    {nombre:'Vía Pública - Ote. 237',lat:19.3987910,lng:-99.0815473,dir:'Vía Pública - Ote. 237 145, Col. Agrícola Oriental, Iztacalco',
+      fechas:[{e:'4 dic',t:'4 de diciembre',dir:'Vía Pública - Ote. 237 145, Col. Agrícola Oriental, Iztacalco'}]},
+    {nombre:'Pilares Coyuya',lat:19.3983360,lng:-99.1135033,dir:'Pilares Coyuya – Av. Plutarco Elías Calles y Av. Coyuya, Col. Coyuya, Iztacalco',
+      fechas:[{e:'14 y 16 dic',t:'14 y 16 de diciembre',dir:'Pilares Coyuya – Av. Plutarco Elías Calles y Av. Coyuya, Col. Coyuya, Iztacalco'}]},
+    {nombre:'Clínica de Salud para el Pueblo',lat:19.4015,lng:-99.1165,dir:'Clínica De Salud Para El Pueblo- Iztacalco Coyuya 208, Col. La Cruz Coyuya, Iztacalco',
+      fechas:[{e:'11-15 ene',t:'11, 12, 13, 14 y 15 de enero',dir:'Clínica De Salud Para El Pueblo- Iztacalco Coyuya 208, Col. La Cruz Coyuya, Iztacalco'}]}
   ];
   var mapa=L.map('map').setView([19.395,-99.100],13);
   // Respaldo: imagen incrustada en un pane por debajo de los mosaicos
@@ -786,16 +800,29 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
     var q=encodeURIComponent(s.dir);
     var url='https://www.google.com/maps/search/?api=1&query='+q;
     var dir='https://www.google.com/maps/dir/?api=1&destination='+q+'&travelmode=driving';
-    var ico=L.divIcon({className:'pin',html:'<div><span>'+(i+1)+'</span></div>',
+    var fechasHtml='';
+    if(s.fechas){
+      fechasHtml='<div class="fechas-sede">'+s.fechas.map(function(f){
+        return '<div>📅 <b>'+f.t+'</b><br>'+f.dir+'</div>';
+      }).join('')+'</div>';
+    }
+    var estrella='<svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true">'+
+      '<polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" '+
+      'fill="#d92f75" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/>'+
+      '<text x="12" y="15.5" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="#fff">'+(i+1)+'</text></svg>';
+    var ico=L.divIcon({className:'pin',html:'<div>'+estrella+'</div>',
       iconSize:[34,34],iconAnchor:[17,34],popupAnchor:[0,-30]});
     var m=L.marker([s.lat,s.lng],{icon:ico,keyboard:true}).addTo(mapa)
       .bindPopup('<b>'+(i+1)+'. '+s.nombre+'</b>'+
         '<div class="direccion-sede">📍 '+s.dir+'</div>'+
+        fechasHtml+
         '<a href="'+dir+'" target="_blank" rel="noopener noreferrer">🧭 Cómo llegar</a> &nbsp;·&nbsp; '+
         '<a href="'+url+'" target="_blank" rel="noopener noreferrer">Ver ubicación</a>');
     marcadores.push(m);
     lim.extend([s.lat,s.lng]);
-    var o=document.createElement('option');o.value=i;o.textContent=(i+1)+'. '+s.nombre;sel.appendChild(o);
+    var o=document.createElement('option');o.value=i;
+    o.textContent=(i+1)+'. '+s.nombre+(s.fechas?' — '+s.fechas.map(function(f){return f.e;}).join(' · '):'');
+    sel.appendChild(o);
   });
   mapa.fitBounds(lim,{padding:[60,60]});
   sel.addEventListener('change',function(e){
