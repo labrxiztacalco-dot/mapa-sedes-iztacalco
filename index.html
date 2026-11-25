@@ -701,6 +701,33 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
   background:#fff4f8;border-left:3px solid #d92f75;padding:6px 8px;border-radius:6px}
 .fechas-sede>div{margin:2px 0}
 .fechas-sede b{color:#d92f75}
+#requisitos{margin:14px 16px 0;padding:14px 16px;background:#fff;border:2px solid #f7b6cd;
+  border-radius:14px;box-shadow:0 3px 12px rgba(217,47,117,.14);animation:aparecer 1.2s ease-out .15s both}
+#requisitos h2{margin:0 0 8px;color:#d92f75;font-size:16px;letter-spacing:1px;text-align:center}
+#requisitos ul{margin:0;padding-left:20px;color:#5a3346;font-size:14px;line-height:1.5;
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px;row-gap:6px}
+#requisitos li{margin:4px 0;font-weight:bold}
+@media (max-width:600px){#requisitos ul{grid-template-columns:1fr}}
+#btn-imprimir{display:block;margin:0 16px 16px;padding:9px 18px;font-size:13px;font-weight:bold;
+  letter-spacing:.5px;cursor:pointer;color:#d92f75;background:#fff;border:2px solid #d92f75;
+  border-radius:10px;box-shadow:0 3px 9px rgba(217,47,117,.18);transition:transform .25s,box-shadow .25s}
+#btn-imprimir:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(217,47,117,.28)}
+#listado-print{display:none}
+@media print{
+  body{background:#fff;color:#000}
+  header{animation:none!important;background:#fff!important}
+  header::before{display:none!important}
+  #map,#controles{display:none!important}
+  #requisitos{margin:0 0 12px;padding:0;border:0;box-shadow:none;animation:none}
+  #requisitos h2{text-align:left;font-size:14px}
+  #requisitos ul{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:16px}
+  #listado-print{display:block;font-size:11px;line-height:1.35}
+  #listado-print h2{font-size:14px;margin:12px 0 6px;color:#000}
+  #listado-print ol{padding-left:18px;margin:0}
+  #listado-print li{margin-bottom:7px;break-inside:avoid}
+  #listado-print .dir{color:#444}
+  #listado-print .fechas{color:#8a3d61}
+}
 @keyframes aparecer{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
 @keyframes latido{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
 @keyframes latidoFuerte{0%,100%{transform:scale(1.05)}50%{transform:scale(1.18)}}
@@ -716,11 +743,24 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
   </div>
 </header>
 
+<section id="requisitos" aria-labelledby="titulo-requisitos">
+  <h2 id="titulo-requisitos">REQUISITOS</h2>
+  <ul>
+    <li>Mujeres de 40 a 69 años.</li>
+    <li>Identificación oficial (INE).</li>
+    <li>Baño del día (sin talco, cremas, perfume, brillos, aceites de la cabeza a la cintura y cabello amarrado).</li>
+    <li>Tener más de un año de haberse realizado un estudio de mastografía.</li>
+  </ul>
+</section>
+
+<div id="listado-print"></div>
+
 <div id="map"></div>
 
 <div id="controles">
   <select id="selector-sedes"><option value="">Selecciona una sede para ver su ubicación</option></select>
   <button type="button" id="btn-resultados">RESULTADOS EN LA SUBDIRECCIÓN DE ATENCIÓN MÉDICA JURISDICCIÓN SANITARIA IZTACALCO 1ER. PISO</button>
+  <button type="button" id="btn-imprimir">IMPRIMIR INFORMACIÓN</button>
 </div>
 
 <script>
@@ -832,6 +872,17 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
   });
   document.getElementById('btn-resultados').addEventListener('click',function(){
     irASede(0);
+  });
+
+  var listado=document.getElementById('listado-print');
+  listado.innerHTML='<h2>Sedes y fechas</h2><ol>'+sedes.map(function(s){
+    var fechas=s.fechas?'<div class="fechas">Fechas: '+s.fechas.map(function(f){
+      return f.t+(f.dir?' ('+f.dir+')':'');
+    }).join('; ')+'</div>':'';
+    return '<li><b>'+s.nombre+'</b><div class="dir">'+s.dir+'</div>'+fechas+'</li>';
+  }).join('')+'</ol>';
+  document.getElementById('btn-imprimir').addEventListener('click',function(){
+    window.print();
   });
 
 })();
