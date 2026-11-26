@@ -855,7 +855,7 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
     var fechasHtml='';
     if(s.fechas){
       fechasHtml='<div class="fechas-sede">'+s.fechas.map(function(f){
-        return '<div>📅 <b>'+f.t+'</b><br>'+f.dir+'</div>';
+        return '<div>📅 <b>'+f.t+'</b></div>';
       }).join('')+'</div>';
     }
     var circulo='<svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true">'+
@@ -887,7 +887,7 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
   var listado=document.getElementById('listado-print');
   listado.innerHTML='<h2>Sedes y fechas</h2><ol>'+sedes.map(function(s){
     var fechas=s.fechas?'<div class="fechas">Fechas: '+s.fechas.map(function(f){
-      return f.t+(f.dir?' ('+f.dir+')':'');
+      return f.t;
     }).join('; ')+'</div>':'';
     return '<li><b>'+s.nombre+'</b><div class="dir">'+s.dir+'</div>'+fechas+'</li>';
   }).join('')+'</ol>';
