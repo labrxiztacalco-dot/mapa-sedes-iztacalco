@@ -686,7 +686,7 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
   border:2px solid #d92f75;border-radius:10px;box-shadow:0 3px 9px rgba(217,47,117,.28);
   transition:transform .25s,box-shadow .25s;animation:brillo 4.8s ease-in-out infinite}
 #btn-resultados:hover{animation:none;transform:translateY(-2px);box-shadow:0 6px 14px rgba(217,47,117,.38)}
-#map{height:440px;width:calc(100% - 32px);margin:14px 16px 0;border:3px solid #f7b6cd;
+#map{height:380px;width:calc(100% - 32px);margin:14px 16px 0;border:3px solid #f7b6cd;
   border-radius:14px;background:#f7dce6;box-shadow:0 3px 12px rgba(217,47,117,.14);
   animation:aparecer 1.2s ease-out .6s both}
 .pin{background:transparent;border:0}
@@ -708,7 +708,7 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
   display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px;row-gap:1px}
 #requisitos li{margin:0;font-weight:bold}
 @media (max-width:600px){#requisitos ul{grid-template-columns:1fr}}
-#btn-imprimir{display:block;margin:0 16px 16px;padding:9px 18px;font-size:13px;font-weight:bold;
+#btn-imprimir{display:table;margin:0 auto 16px;padding:9px 18px;font-size:13px;font-weight:bold;
   letter-spacing:.5px;cursor:pointer;color:#d92f75;background:#fff;border:2px solid #d92f75;
   border-radius:10px;box-shadow:0 3px 9px rgba(217,47,117,.18);transition:transform .25s,box-shadow .25s}
 #btn-imprimir:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(217,47,117,.28)}
@@ -719,10 +719,12 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
 .agendar-print{display:none}
 #listado-print{display:none}
 #nieve{position:fixed;inset:0;z-index:9999;pointer-events:none;overflow:hidden}
-#nieve i{position:absolute;top:-12px;display:block;border-radius:50%;background:#fff;
-  opacity:.65;box-shadow:0 0 5px rgba(255,255,255,.95);will-change:transform;
+#nieve i{position:absolute;top:-12px;display:block;background:#fff;
+  clip-path:polygon(50% 0%,61% 31%,93% 25%,72% 50%,93% 75%,61% 69%,50% 100%,39% 69%,7% 75%,28% 50%,7% 25%,39% 31%);
+  -webkit-clip-path:polygon(50% 0%,61% 31%,93% 25%,72% 50%,93% 75%,61% 69%,50% 100%,39% 69%,7% 75%,28% 50%,7% 25%,39% 31%);
+  opacity:.78;filter:drop-shadow(0 0 3px rgba(255,255,255,.9));will-change:transform;
   animation:caerNieve linear infinite}
-@keyframes caerNieve{to{transform:translate3d(var(--deriva),110vh,0)}}
+@keyframes caerNieve{to{transform:translate3d(var(--deriva),110vh,0) rotate(360deg)}}
 @media print{
   #nieve{display:none!important}
   body{background:#fff;color:#000}
@@ -912,7 +914,7 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
   var frag=document.createDocumentFragment();
   for(var i=0;i<34;i++){
     var copo=document.createElement('i');
-    var tam=3+Math.random()*6;
+    var tam=5+Math.random()*7;
     copo.style.width=tam+'px';
     copo.style.height=tam+'px';
     copo.style.left=(Math.random()*100)+'%';
