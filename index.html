@@ -680,9 +680,9 @@ header h1 .ciudad{color:#5a3346;font-weight:normal}
 header p{margin:5px 0 0;font-size:13px;color:#a0527a}
 #controles{padding:12px 16px 4px;animation:aparecer 1.2s ease-out .3s both}
 #selector-sedes{width:360px;max-width:100%;padding:9px;font-size:14px;border:1px solid #f0a9c4;
-  border-radius:8px;background:#fff;color:#8a3d61}
-#selector-sedes option{color:#d92f75;background:#fff}
-#selector-sedes option:checked{color:#fff;background:#d92f75}
+  border-radius:8px;background:#fff;color:#8a3d61;font-weight:bold}
+#selector-sedes option{color:#d92f75;background:#fff;font-weight:bold}
+#selector-sedes option:checked{color:#fff;background:#d92f75;font-weight:bold}
 #btn-resultados{display:block;margin:10px 16px 16px;padding:11px 20px;font-size:14px;font-weight:bold;
   letter-spacing:.5px;line-height:1.4;text-align:center;cursor:pointer;color:#fff;background:#d92f75;
   border:2px solid #d92f75;border-radius:10px;box-shadow:0 3px 9px rgba(217,47,117,.28);
@@ -721,10 +721,9 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
 .agendar-print{display:none}
 #listado-print{display:none}
 #nieve{position:fixed;inset:0;z-index:9999;pointer-events:none;overflow:hidden}
-#nieve i{position:absolute;top:-12px;display:block;background:#fff;
-  clip-path:polygon(50% 0%,61% 31%,93% 25%,72% 50%,93% 75%,61% 69%,50% 100%,39% 69%,7% 75%,28% 50%,7% 25%,39% 31%);
-  -webkit-clip-path:polygon(50% 0%,61% 31%,93% 25%,72% 50%,93% 75%,61% 69%,50% 100%,39% 69%,7% 75%,28% 50%,7% 25%,39% 31%);
-  opacity:.78;filter:drop-shadow(0 0 3px rgba(255,255,255,.9));will-change:transform;
+#nieve i{position:absolute;top:-24px;color:#fff;opacity:.8;line-height:1;
+  font-family:"Segoe UI Symbol","Arial Unicode MS",Arial,sans-serif;
+  text-shadow:0 0 5px rgba(255,255,255,.95);will-change:transform;
   animation:caerNieve linear infinite}
 @keyframes caerNieve{to{transform:translate3d(var(--deriva),110vh,0) rotate(360deg)}}
 @media print{
@@ -804,9 +803,9 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
     {nombre:"UPNA Centro de Salud T-III Dr. Luis Mazzotti Galindo",lat:19.4136083,lng:-99.0584283,dir:"Calle 6 No. 311, esq. Privada Tomás Roche, Pantitlán, Iztacalco, CDMX",
       fechas:[{e:'8 dic 2026',t:'8 de diciembre de 2026',dir:'Calle 6 y Tomás Roda s/n, Col. Agrícola Pantitlán, Iztacalco'}]},
     {nombre:'UPNA Centro de Salud T-III Dr. Manuel Pesqueira',lat:19.3943525,lng:-99.0704234,dir:"Sur 16 470, Agrícola Oriental, Iztacalco, 08500 Ciudad de México, CDMX"},
+    {nombre:'Utopía Mixiuhca - Casa de la Salud (Mastógrafo fijo)',lat:19.40761,lng:-99.09153,dir:"Viad. Río de la Piedad 6, Granjas México, Iztacalco, 08400 Ciudad de México, CDMX"},
     {nombre:"Mercado La Cruz",lat:19.4023267,lng:-99.1174201,dir:"Calz. Coyuya s/n, La Cruz, Iztacalco, 08320 CDMX",
       fechas:[{e:'7 y 9 dic 2026',t:'7 y 9 de diciembre de 2026',dir:'Mercado de la Cruz-Coyuya S/N, Col. La Cruz Coyuya, Iztacalco'}]},
-    {nombre:'Utopía Mixiuhca - Casa de la Salud (Mastógrafo fijo)',lat:19.40761,lng:-99.09153,dir:"Viad. Río de la Piedad 6, Granjas México, Iztacalco, 08400 Ciudad de México, CDMX"},
     {nombre:'Vía Pública - Mercado Rodeo',lat:19.3919815,lng:-99.0854713,dir:'Vía Pública-Mercado Rodeo, Calle 30, Col. El Rodeo, Iztacalco',
       fechas:[{e:'1 y 2 dic 2026',t:'1 y 2 de diciembre de 2026',dir:'Vía Pública-Mercado Rodeo, Calle 30, Col. El Rodeo, Iztacalco'}]},
     {nombre:'Vía Pública - Raíz del Agua',lat:19.3820890,lng:-99.1050735,dir:'Vía Pública- Raíz del Agua S/N, Col. INFONAVIT, Iztacalco',
@@ -916,9 +915,8 @@ header p{margin:5px 0 0;font-size:13px;color:#a0527a}
   var frag=document.createDocumentFragment();
   for(var i=0;i<34;i++){
     var copo=document.createElement('i');
-    var tam=5+Math.random()*7;
-    copo.style.width=tam+'px';
-    copo.style.height=tam+'px';
+    copo.textContent=Math.random()<.5?'❄':'✦';
+    copo.style.fontSize=(14+Math.random()*9)+'px';
     copo.style.left=(Math.random()*100)+'%';
     copo.style.setProperty('--deriva',((Math.random()*120)-60)+'px');
     copo.style.animationDuration=(8+Math.random()*12)+'s';
